@@ -1,33 +1,10 @@
 #!/bin/bash
 
-npm install @openapitools/openapi-generator-cli
+rm src/__generated/* -rf
 
-rm *.ts -rf
-
-./node_modules/\@openapitools/openapi-generator-cli/main.js generate \
--g typescript-axios \
---additional-properties=npmName=vrchat \
---git-user-id=vrchatapi \
---git-repo-id=vrchatapi-javascript \
--o . \
--i https://raw.githubusercontent.com/vrchatapi/specification/gh-pages/openapi.yaml \
---http-user-agent="vrchatapi-javascript"
-
-# Modify package.json
-sed -i 's/OpenAPI client for vrchat/🟡🔵 VRChat API Library for JavaScript and TypeScript/g' ./package.json
-sed -i 's/Unlicense/MIT/g' ./package.json
-
-# Enable global cookies
-sed -i '/^import { BASE_PATH/a import axiosCookieJarSupport from "axios-cookiejar-support";axiosCookieJarSupport(globalAxios);import { CookieJar } from "tough-cookie";globalAxios.defaults.jar = new CookieJar();globalAxios.defaults.withCredentials = true;' ./api.ts
-
-sed -i '/"dependencies"/a     "@types/tough-cookie": "^4.0.1",' ./package.json
-sed -i '/"dependencies"/a     "axios-cookiejar-support": "^1.0.1",' ./package.json
-sed -i '/"dependencies"/a     "tough-cookie": "^4.0.0",' ./package.json
-
-# Remove messily pasted markdown at top of every file
-for i in *.ts; do
-    sed -i '/VRChat API Banner/d' $i
-done
+npx @hey-api/openapi-ts -i https://raw.githubusercontent.com/vrchatapi/specification/gh-pages/openapi.yaml -o src/__generated -c @hey-api/client-fetch --schemas false
 
 npm install
+
+rm dist/* -rf
 npm run build

@@ -1,18 +1,16 @@
 {
+  "include": [
+    "src"
+  ],
   "compilerOptions": {
     "declaration": true,
-    "target": "ES5",
-    "module": "commonjs",
+    "target": "es2020",
+    "module": "es2022",
+    "strict": true,
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "outDir": "dist",
-    "rootDir": ".",
-    "lib": [
-      "es6",
-      "dom"
-    ],
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "rootDir": "src",
   },
   "exclude": [
     "dist",

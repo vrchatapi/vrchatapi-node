@@ -1,20 +1,22 @@
 {
   "name": "vrchat",
   "version": "1.17.5",
-  "description": "🟡🔵 VRChat API Library for JavaScript and TypeScript",
-  "author": "OpenAPI-Generator Contributors",
+  "description": "🟡🔵 VRChat API for JavaScript and TypeScript",
   "repository": {
     "type": "git",
     "url": "https://github.com/vrchatapi/vrchatapi-javascript.git"
   },
   "keywords": [
-    "axios",
+    "fetch",
     "typescript",
     "openapi-client",
     "openapi-generator",
     "vrchat"
   ],
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
@@ -22,13 +24,17 @@
     "prepare": "npm run build"
   },
   "dependencies": {
-"tough-cookie": "^4.0.0",
-"axios-cookiejar-support": "^1.0.1",
-"@types/tough-cookie": "^4.0.1",
-    "axios": "^0.26.1"
+    "@hapi/catbox": "^12.1.1",
+    "@hapi/catbox-memory": "^6.0.1",
+    "@hey-api/client-fetch": "^0.1.3",
+    "debug": "^4.3.5",
+    "totp-generator": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^12.11.5",
+    "@ariesclark/eslint-config": "^1.7.2",
+    "@types/debug": "^4.1.12",
+    "@types/hapi__catbox-memory": "^4.1.8",
+    "eslint": "^8.57.0",
     "typescript": "^4.0"
   }
 }
