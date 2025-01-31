@@ -32,10 +32,10 @@ async function main() {
     console.log(`Logged in as: ${currentUser.displayName}`);
 
     const currentOnlineUsers = (await systemApi.getCurrentOnlineUsers()).data;
-    console.log(`Current Online Users: ${resp.data}`);
+    console.log(`Current Online Users: ${currentOnlineUsers}`);
 
     const tupperUser = (await usersApi.getUser("usr_c1644b5b-3ca4-45b4-97c6-a2a0de70d469")).data;
-    console.log(resp.data.displayName);
+    console.log(tupperUser.displayName);
 }
 
 main();
