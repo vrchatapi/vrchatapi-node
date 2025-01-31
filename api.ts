@@ -20,6 +20,11 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 import axiosCookieJarSupport from "axios-cookiejar-support";axiosCookieJarSupport(globalAxios);import { CookieJar } from "tough-cookie";globalAxios.defaults.jar = new CookieJar();globalAxios.defaults.withCredentials = true;
+let formData = require("form-data");
+type File = {
+	name: string,
+	data: Buffer
+}
 
 /**
  * 
@@ -13004,6 +13009,149 @@ export const FilesApiAxiosParamCreator = function (configuration?: Configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Upload gallery image
+         * @param {File} file The binary blob of the png file.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadGalleryImage: async (file: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('uploadGalleryImage', 'file', file)
+            const localVarPath = `/gallery`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new formData();
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file.data, { filename: file.name, contentType: file.name.endsWith('.png') ? 'image/png' : 'application/octet-stream' });
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams.getBuffer();
+localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers, ...localVarFormParams.getHeaders()};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Upload icon
+         * @param {File} file The binary blob of the png file.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadIcon: async (file: File, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('uploadIcon', 'file', file)
+            const localVarPath = `/icon`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new formData();
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file.data, { filename: file.name, contentType: file.name.endsWith('.png') ? 'image/png' : 'application/octet-stream' });
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams.getBuffer();
+localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers, ...localVarFormParams.getHeaders()};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Upload gallery image, icon, emoji or sticker
+         * @param {File} file The binary blob of the png file.
+         * @param {string} tag Needs to be either icon, gallery, sticker or emoji
+         * @param {string} [animationStyle] Animation style for sticker, required for sticker.
+         * @param {string} [maskTag] Mask of the sticker, optional for sticker.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadImage: async (file: File, tag: string, animationStyle?: string, maskTag?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'file' is not null or undefined
+            assertParamExists('uploadImage', 'file', file)
+            // verify required parameter 'tag' is not null or undefined
+            assertParamExists('uploadImage', 'tag', tag)
+            const localVarPath = `/file/image`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+            const localVarFormParams = new formData();
+
+
+            if (file !== undefined) { 
+                localVarFormParams.append('file', file.data, { filename: file.name, contentType: file.name.endsWith('.png') ? 'image/png' : 'application/octet-stream' });
+            }
+    
+            if (tag !== undefined) { 
+                localVarFormParams.append('tag', tag as any);
+            }
+    
+            if (animationStyle !== undefined) { 
+                localVarFormParams.append('animationStyle', animationStyle as any);
+            }
+    
+            if (maskTag !== undefined) { 
+                localVarFormParams.append('maskTag', maskTag as any);
+            }
+    
+    
+            localVarHeaderParameter['Content-Type'] = 'multipart/form-data';
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = localVarFormParams.getBuffer();
+localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers, ...localVarFormParams.getHeaders()};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -13174,6 +13322,42 @@ export const FilesApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.startFileDataUpload(fileId, versionId, fileType, partNumber, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @summary Upload gallery image
+         * @param {File} file The binary blob of the png file.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadGalleryImage(file: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadGalleryImage(file, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Upload icon
+         * @param {File} file The binary blob of the png file.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadIcon(file: File, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadIcon(file, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Upload gallery image, icon, emoji or sticker
+         * @param {File} file The binary blob of the png file.
+         * @param {string} tag Needs to be either icon, gallery, sticker or emoji
+         * @param {string} [animationStyle] Animation style for sticker, required for sticker.
+         * @param {string} [maskTag] Mask of the sticker, optional for sticker.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async uploadImage(file: File, tag: string, animationStyle?: string, maskTag?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<any>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.uploadImage(file, tag, animationStyle, maskTag, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -13330,6 +13514,39 @@ export const FilesApiFactory = function (configuration?: Configuration, basePath
          */
         startFileDataUpload(fileId: string, versionId: number, fileType: 'file' | 'signature' | 'delta', partNumber?: number, options?: any): AxiosPromise<FileUploadURL> {
             return localVarFp.startFileDataUpload(fileId, versionId, fileType, partNumber, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Upload gallery image
+         * @param {File} file The binary blob of the png file.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadGalleryImage(file: File, options?: any): AxiosPromise<any> {
+            return localVarFp.uploadGalleryImage(file, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Upload icon
+         * @param {File} file The binary blob of the png file.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadIcon(file: File, options?: any): AxiosPromise<any> {
+            return localVarFp.uploadIcon(file, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Upload gallery image, icon, emoji or sticker
+         * @param {File} file The binary blob of the png file.
+         * @param {string} tag Needs to be either icon, gallery, sticker or emoji
+         * @param {string} [animationStyle] Animation style for sticker, required for sticker.
+         * @param {string} [maskTag] Mask of the sticker, optional for sticker.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        uploadImage(file: File, tag: string, animationStyle?: string, maskTag?: string, options?: any): AxiosPromise<any> {
+            return localVarFp.uploadImage(file, tag, animationStyle, maskTag, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -13512,6 +13729,45 @@ export class FilesApi extends BaseAPI {
      */
     public startFileDataUpload(fileId: string, versionId: number, fileType: 'file' | 'signature' | 'delta', partNumber?: number, options?: AxiosRequestConfig) {
         return FilesApiFp(this.configuration).startFileDataUpload(fileId, versionId, fileType, partNumber, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upload gallery image
+     * @param {File} file The binary blob of the png file.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    public uploadGalleryImage(file: File, options?: AxiosRequestConfig) {
+        return FilesApiFp(this.configuration).uploadGalleryImage(file, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upload icon
+     * @param {File} file The binary blob of the png file.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    public uploadIcon(file: File, options?: AxiosRequestConfig) {
+        return FilesApiFp(this.configuration).uploadIcon(file, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Upload gallery image, icon, emoji or sticker
+     * @param {File} file The binary blob of the png file.
+     * @param {string} tag Needs to be either icon, gallery, sticker or emoji
+     * @param {string} [animationStyle] Animation style for sticker, required for sticker.
+     * @param {string} [maskTag] Mask of the sticker, optional for sticker.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof FilesApi
+     */
+    public uploadImage(file: File, tag: string, animationStyle?: string, maskTag?: string, options?: AxiosRequestConfig) {
+        return FilesApiFp(this.configuration).uploadImage(file, tag, animationStyle, maskTag, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

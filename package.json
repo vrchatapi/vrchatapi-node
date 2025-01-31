@@ -22,6 +22,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
+"form-data": "^4.0.1",
 "tough-cookie": "^4.0.0",
 "axios-cookiejar-support": "^1.0.1",
 "@types/tough-cookie": "^4.0.1",
